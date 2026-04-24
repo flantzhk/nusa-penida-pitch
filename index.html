@@ -163,14 +163,14 @@ body { background:var(--cream); color:var(--ink); font-family:var(--f); font-siz
 
 /* CHECKLIST */
 .chk { display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem; }
-.ci { position:relative;overflow:hidden;aspect-ratio:4/3;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem; }
-.ci img.ci-bg { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform 6s ease;display:block; }
-.ci:hover img.ci-bg { transform:scale(1.04); }
-.ci::after { content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,.92) 0%,rgba(10,10,8,.45) 55%,rgba(10,10,8,.08) 100%);z-index:1; }
-.ci > *:not(img) { position:relative;z-index:2; }
-.cbox { font-size:.85rem;color:var(--gold-l);line-height:1;margin-bottom:auto; }
+.ci { display:flex;flex-direction:column; }
+.ci-img { overflow:hidden;aspect-ratio:4/3; }
+.ci-img img { width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s ease; }
+.ci:hover .ci-img img { transform:scale(1.04); }
+.ci-text { padding:1.1rem 1.4rem 1.4rem;background:var(--stone);border-top:2px solid var(--gold);flex:1; }
+.cbox { font-size:.75rem;color:var(--gold);line-height:1;display:block;margin-bottom:.55rem; }
 .cbox::after { content:'✓'; }
-.ch { font-size:.9rem;font-weight:500;color:#fff;line-height:1.3;margin-bottom:.3rem; }
+.ch { font-size:.9rem;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:.3rem; }
 
 /* ACCORDION */
 .ai { border-top:1px solid var(--bd); }
@@ -201,7 +201,6 @@ body { background:var(--cream); color:var(--ink); font-family:var(--f); font-siz
   .g2,.g2w { grid-template-columns:1fr; }
   .pimg { order:-1;aspect-ratio:16/9; }
   .chk { grid-template-columns:1fr 1fr;gap:.75rem; }
-  .ci { aspect-ratio:3/2; }
   .photos { grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px; }
   .photos figure:first-child { grid-row:1;grid-column:1/3; }
   .wimgs { grid-template-rows:160px 160px; }
@@ -355,12 +354,12 @@ body { background:var(--cream); color:var(--ink); font-family:var(--f); font-siz
   <h2 class="h2 rv">This is a<br><em>ready-to-build site.</em></h2>
   <p class="lead intro rv">Excavation, retaining walls, access road, zoning. The groundwork is done.</p>
   <div class="chk">
-    <div class="ci rv"><img class="ci-bg" src="photos/land-05.jpg" alt="" loading="lazy"><div class="cbox"></div><p class="ch">Limestone perimeter wall built</p><p class="body" style="color:rgba(255,255,255,.65)">Boundary secured. Stone quarried directly from the land.</p></div>
-    <div class="ci rv"><img class="ci-bg" src="photos/land-01.jpg" alt="" loading="lazy"><div class="cbox"></div><p class="ch">Land fully levelled</p><p class="body" style="color:rgba(255,255,255,.65)">Excavation and earthworks complete.</p></div>
-    <div class="ci rv"><img class="ci-bg" src="https://images.unsplash.com/photo-1730810746157-58cc731907b8?w=800&q=80" alt="" loading="lazy"><div class="cbox"></div><p class="ch">Topography drawings done</p><p class="body" style="color:rgba(255,255,255,.65)">Survey documentation ready.</p></div>
-    <div class="ci rv"><img class="ci-bg" src="photos/land-03.jpg" alt="" loading="lazy"><div class="cbox"></div><p class="ch">4m road access in</p><p class="body" style="color:rgba(255,255,255,.65)">Direct vehicle access to the boundary.</p></div>
-    <div class="ci rv"><img class="ci-bg" src="https://images.unsplash.com/photo-1711948728889-614d5d0030f8?w=800&q=80" alt="" loading="lazy"><div class="cbox"></div><p class="ch">Pondok Wisata zoning confirmed</p><p class="body" style="color:rgba(255,255,255,.65)">Legally permits villas, boutique resorts, and guest accommodation.</p></div>
-    <div class="ci rv"><img class="ci-bg" src="photos/land-02.jpg" alt="" loading="lazy"><div class="cbox"></div><p class="ch">Lease assignment ready</p><p class="body" style="color:rgba(255,255,255,.65)">28-year leasehold to July 2054. Ready to transact.</p></div>
+    <div class="ci rv"><div class="ci-img"><img src="photos/land-05.jpg" alt="Limestone perimeter wall" loading="lazy"></div><div class="ci-text"><span class="cbox"></span><p class="ch">Limestone perimeter wall built</p><p class="body">Boundary secured. Stone quarried directly from the land.</p></div></div>
+    <div class="ci rv"><div class="ci-img"><img src="photos/land-01.jpg" alt="Land fully levelled" loading="lazy"></div><div class="ci-text"><span class="cbox"></span><p class="ch">Land fully levelled</p><p class="body">Excavation and earthworks complete.</p></div></div>
+    <div class="ci rv"><div class="ci-img"><img src="https://images.unsplash.com/photo-1730810746157-58cc731907b8?w=800&q=80" alt="Topography survey" loading="lazy"></div><div class="ci-text"><span class="cbox"></span><p class="ch">Topography drawings done</p><p class="body">Survey documentation ready.</p></div></div>
+    <div class="ci rv"><div class="ci-img"><img src="photos/land-03.jpg" alt="Road access" loading="lazy"></div><div class="ci-text"><span class="cbox"></span><p class="ch">4m road access in</p><p class="body">Direct vehicle access to the boundary.</p></div></div>
+    <div class="ci rv"><div class="ci-img"><img src="https://images.unsplash.com/photo-1711948728889-614d5d0030f8?w=800&q=80" alt="Aerial resort Bali" loading="lazy"></div><div class="ci-text"><span class="cbox"></span><p class="ch">Pondok Wisata zoning confirmed</p><p class="body">Legally permits villas, boutique resorts, and guest accommodation.</p></div></div>
+    <div class="ci rv"><div class="ci-img"><img src="photos/land-02.jpg" alt="Land boundary and ocean view" loading="lazy"></div><div class="ci-text"><span class="cbox"></span><p class="ch">Lease assignment ready</p><p class="body">28-year leasehold to July 2054. Ready to transact.</p></div></div>
   </div>
 </div>
 
