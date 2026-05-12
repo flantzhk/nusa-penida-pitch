@@ -882,7 +882,7 @@ body {
   <div class="si">
     <p class="lbl lbl-d rv">Walk the Land</p>
     <h2 class="h2-w rv">See it<br><em>in motion.</em></h2>
-    <p class="sub-dk rv">Click to play. No audio.</p>
+    <p class="sub-dk rv">Click to play. Audio on.</p>
     <div class="video-grid">
       <div class="vc rv" onclick="openVideo('videos/site-tour-1.mp4','photos/land-04.jpg')" role="button" tabindex="0" aria-label="Play site walkthrough video 1">
         <div class="vc-thumb">
@@ -1097,7 +1097,7 @@ body {
 <div id="video-modal" role="dialog" aria-modal="true" aria-label="Video player">
   <button class="vm-close" id="vm-close-btn" aria-label="Close video">&#215;</button>
   <div class="vm-inner">
-    <video id="vm-video" muted playsinline controls></video>
+    <video id="vm-video" playsinline controls></video>
     <p id="vm-error" style="display:none;color:oklch(100% 0 0 / 0.7);font-size:.95rem;padding:1.5rem;text-align:center;">Video unavailable. Message us on WhatsApp for a direct link.</p>
   </div>
 </div>
@@ -1166,7 +1166,6 @@ function openVideo(src, poster) {
   const errEl = document.getElementById('vm-error');
   video.poster = poster || '';
   video.src = src;
-  video.muted = true;
   errEl.style.display = 'none';
   video.style.display = 'block';
   document.getElementById('video-modal').classList.add('open');
