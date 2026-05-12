@@ -694,6 +694,65 @@ body {
   .hero-h1 { font-size: clamp(2rem, 4.5vw, 5rem); }
 }
 
+/* ── PRINT BUTTON ───────────────────────────────────────────────── */
+.btn-print {
+  background: none; border: 1px solid oklch(100% 0 0 / 0.22);
+  color: oklch(100% 0 0 / 0.55); padding: .65rem 1.4rem;
+  font-family: var(--sans); font-size: 13px; letter-spacing: .1em;
+  text-transform: uppercase; cursor: pointer;
+  display: inline-flex; align-items: center; gap: .5rem;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  transition: border-color .2s, color .2s; margin-top: .75rem;
+}
+.btn-print:hover { border-color: oklch(100% 0 0 / 0.5); color: oklch(100% 0 0 / 0.85); }
+
+/* ── PRINT URL FOOTER ───────────────────────────────────────────── */
+.print-url {
+  display: none; text-align: center; padding: 2rem 2rem 1rem;
+  font-size: 11px; color: var(--muted); letter-spacing: .08em;
+  border-top: 1px solid var(--bd);
+}
+
+/* ── PRINT / PDF ────────────────────────────────────────────────── */
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  @page { size: A4 portrait; margin: 12mm 16mm 18mm; }
+
+  /* Hide chrome and non-printable elements */
+  #bar, #nav, #dots, .skip-link,
+  #lightbox, #video-modal, #video,
+  .btn-out, .btn-print { display: none !important; }
+
+  /* Kill all animation */
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1 !important; transform: none !important; }
+  .stat { opacity: 1 !important; }
+  .hero-h1, .hero-sub, .hero-cta { opacity: 1 !important; }
+
+  /* Hero */
+  .hero { padding-top: 0; break-after: avoid; }
+
+  /* Gallery captions always visible */
+  .g-cap { opacity: 1 !important; }
+
+  /* Expand all accordions */
+  .ab { max-height: none !important; overflow: visible !important; }
+  .ai-icon { display: none !important; }
+  .at { padding: .75rem 0; font-size: .95rem; }
+
+  /* Page breaks */
+  #gallery { break-before: page; }
+  #market { break-before: page; }
+  #details { break-before: page; }
+  #contact { break-before: page; }
+
+  /* Don't break inside these */
+  .done-item, .nb, .scan-list li, .ai, .step { break-inside: avoid; }
+
+  /* Show print footer */
+  .print-url { display: block !important; }
+}
+
 /* ── REDUCED MOTION ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .rv { opacity: 1; transform: none; transition: none; }
@@ -1074,8 +1133,17 @@ body {
       Message on WhatsApp
     </a>
     <p class="cta-note rv">+62 812-4657-2624 &nbsp;·&nbsp; Responds in English and Indonesian</p>
+    <button class="btn-print rv" onclick="window.print()" style="margin-top:2rem;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 16l-4-4h3V4h2v8h3l-4 4z"/><path d="M4 18h16v2H4z"/></svg>
+      Download as PDF
+    </button>
   </div>
 </section>
+
+<!-- ════════════════════ PRINT FOOTER ════════════════════ -->
+<div class="print-url">
+  flantzhk.github.io/nusa-penida-pitch &nbsp;·&nbsp; 2,346 m² &nbsp;·&nbsp; Desa Suana, Nusa Penida &nbsp;·&nbsp; +62 812-4657-2624
+</div>
 
 <!-- ════════════════════ LIGHTBOX ════════════════════ -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
@@ -1292,6 +1360,16 @@ document.querySelectorAll('img[src^="photos/"]').forEach(img => {
     } else {
       this.closest('figure, .story-img, .done-img, .vc-thumb') &&
         (this.style.opacity = '0.1');
+    }
+  });
+});
+
+// ── PRINT: force lazy images to load before PDF capture ───────────
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+    img.loading = 'eager';
+    if (!img.complete || img.naturalWidth === 0) {
+      const src = img.src; img.src = ''; img.src = src;
     }
   });
 });
